@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "144299720119",
+    "firebase_url": "https://matka-tips-today.firebaseio.com",
+    "project_id": "matka-tips-today",
+    "storage_bucket": "matka-tips-today.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144299720119:android:a407922d6eae6bda",
+        "android_client_info": {
+          "package_name": "com.matkatipstoday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144299720119-c0j0t6l4f9jn4k4bpmtfcmmhtv66eppr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVx-NEStVJR8WfAo_d9bflnllNPGeKe0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144299720119-c0j0t6l4f9jn4k4bpmtfcmmhtv66eppr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-6557991925171580~9449221948"
+    }
+  ],
+  "configuration_version": "1"
+}

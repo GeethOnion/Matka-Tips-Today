@@ -1,0 +1,3 @@
+
+
+jarsigner -verbose -keystore my-release-key.keystore app-release-unsigned.apk app-alias
