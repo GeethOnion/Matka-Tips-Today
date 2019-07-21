@@ -30,6 +30,8 @@ target 'matkatipstoday' do
 
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'matkatipstodayTests' do
     inherit! :search_paths
     # Pods for testing

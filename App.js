@@ -10,6 +10,19 @@ import {
 
 import firebase from "react-native-firebase";
 
+import { createAppContainer, createStackNavigator } from "react-navigation";
+
+//Screens
+import HomeScreen from "./Screens/HomeScreen";
+import ResultsScreen from "./Screens/ResultsScreen";
+
+const StackNavigator = createStackNavigator({
+  HomeScreen: HomeScreen,
+  ResultsScreen: ResultsScreen
+});
+
+const AppContainer = createAppContainer(StackNavigator);
+
 export default class App extends React.Component {
   componentDidMount() {
     firebase.messaging().subscribeToTopic("all");
@@ -42,11 +55,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>{this.state.data}</Text>
-      </View>
-    );
+    return <AppContainer />;
   }
 }
 
