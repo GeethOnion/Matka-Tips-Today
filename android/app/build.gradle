@@ -189,6 +189,7 @@ android {
 }
 
 dependencies {
+    implementation project(':@react-native-community_netinfo')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-firebase')
@@ -199,6 +200,8 @@ dependencies {
     implementation "com.google.firebase:firebase-core:16.0.9" //me parana eka
     implementation "com.google.firebase:firebase-firestore:19.0.0"
     implementation "com.google.firebase:firebase-messaging:18.0.0"
+    implementation "com.google.firebase:firebase-ads:17.2.1"
+   
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")
@@ -219,3 +222,4 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 
 
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

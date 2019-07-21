@@ -8,6 +8,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/netinfo": "^4.1.2",
     "react": "16.8.6",
     "react-native": "0.60.4",
     "react-native-firebase": "^5.5.5",

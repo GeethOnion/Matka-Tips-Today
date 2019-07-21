@@ -8,24 +8,11 @@ import {
   FlatList,
   TouchableNativeFeedback,
   NetInfo,
-  Dimensions
+  Dimensions,
+  Platform
 } from "react-native";
 
 const { width } = Dimensions.get("window");
-
-// function OfflineSign() {
-//   return (
-//     <View style={styles.offlineContainer}>
-//       <Text>No Internet Connection</Text>
-//     </View>
-//   );
-// }
-
-// class OfflineNotice extends React.Component {
-//   render() {
-//     return <OfflineSign />;
-//   }
-// }
 
 // import {
 //   AdMobBanner,
@@ -36,15 +23,19 @@ const { width } = Dimensions.get("window");
 
 import LinearGradient from "react-native-linear-gradient";
 import firebase from "react-native-firebase";
+
 import verCheck from "./verCheck";
+import OfflineNotice from "./OfflineNotice";
+
+import "../adMob";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Matka Tips Today",
     headerStyle: {
-      backgroundColor: "#24C6DC"
+      backgroundColor: "#f3d104"
     },
-    headerTintColor: "#fff",
+    headerTintColor: "#721f00",
     headerTitleStyle: {
       fontWeight: "bold"
     }
@@ -56,13 +47,25 @@ export default class HomeScreen extends React.Component {
     this.state = {
       isLoading: true,
       categories: []
-      //   isConnected: true
     };
     this.ref = firebase.firestore().collection("categories");
   }
 
   componentDidMount() {
     verCheck();
+    const advert = firebase.admob().interstitial(global.adMobIds.interstitial);
+    const AdRequest = firebase.admob.AdRequest;
+    const request = new AdRequest();
+    advert.loadAd(request.build());
+
+    setTimeout(() => {
+      if (advert.isLoaded()) {
+        advert.show();
+      } else {
+        // Unable to show interstitial - not loaded yet.
+      }
+    }, 10000);
+
     this.unsubscribe = this.ref.onSnapshot(querySnapshot => {
       const categories = [];
       querySnapshot.forEach(doc => {
@@ -87,14 +90,19 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    const Banner = firebase.admob.Banner;
+
+    const AdRequest = firebase.admob.AdRequest;
+    const request = new AdRequest();
+
     return (
       <View style={{ flex: 1 }}>
-        {/* <OfflineNotice /> */}
         <LinearGradient
-          colors={["#24C6DC", "#514A9D"]}
+          colors={["#f3d104", "#7b3c15"]}
           style={{ height: "100%" }}
         >
-          <StatusBar backgroundColor="#24C6DC" barStyle="light-content" />
+          <StatusBar backgroundColor="#f3d104" barStyle="dark-content" />
+          <OfflineNotice />
           <ScrollView style={styles.scroll}>
             <View>
               <FlatList
@@ -121,6 +129,11 @@ export default class HomeScreen extends React.Component {
               />
             </View>
           </ScrollView>
+          <Banner
+            unitId={global.adMobIds.banner}
+            size={"SMART_BANNER"}
+            request={request.build()}
+          />
           <View style={styles.addView}>
             {/* <AdMobBanner
               adSize="banner"

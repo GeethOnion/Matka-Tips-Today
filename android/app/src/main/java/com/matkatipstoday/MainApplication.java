@@ -7,15 +7,21 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import io.invertase.firebase.RNFirebasePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+
+import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
+import com.google.android.gms.ads.MobileAds;
 
+
+import com.reactnativecommunity.netinfo.NetInfoPackage;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -34,6 +40,7 @@ public class MainApplication extends Application implements ReactApplication {
       // packages.add(new MyReactNativePackage());
       packages.add(new RNFirebaseFirestorePackage());
       packages.add(new RNFirebaseMessagingPackage());
+      packages.add(new RNFirebaseAdMobPackage());
       return packages;
     }
 
@@ -51,6 +58,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
     SoLoader.init(this, /* native exopackage */ false);
   }
 }

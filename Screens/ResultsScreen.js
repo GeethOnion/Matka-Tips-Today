@@ -8,7 +8,10 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 //   AdMobRewarded
 // } from "react-native-admob";
 
+import firebase from "react-native-firebase";
+
 import LinearGradient from "react-native-linear-gradient";
+import OfflineNotice from "./OfflineNotice";
 
 export default class ResultsScreen extends React.Component {
   constructor(props) {
@@ -39,17 +42,21 @@ export default class ResultsScreen extends React.Component {
   static navigationOptions = {
     title: "Results",
     headerStyle: {
-      backgroundColor: "#24C6DC"
+      backgroundColor: "#f3d104"
     },
-    headerTintColor: "#fff",
+    headerTintColor: "#721f00",
     headerTitleStyle: {
       fontWeight: "bold"
     }
   };
 
   render() {
+    const Banner = firebase.admob.Banner;
+    const AdRequest = firebase.admob.AdRequest;
+    const request = new AdRequest();
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <OfflineNotice />
         <ScrollView style={styles.scroll}>
           <Text style={{ fontSize: 20, textAlign: "center", marginTop: 50 }}>
             {this.state.date}
@@ -59,11 +66,9 @@ export default class ResultsScreen extends React.Component {
               alignItems: "center"
             }}
           >
-            <Text>This is your Paragraph,</Text>
-
             <View style={styles.reslutview}>
               <LinearGradient
-                colors={["#24C6DC", "#514A9D"]}
+                colors={["#f3d104", "#7b3c15"]}
                 style={{ height: "100%", borderRadius: 15 }}
               >
                 <View style={styles.result}>
@@ -78,6 +83,11 @@ export default class ResultsScreen extends React.Component {
             </View>
           </View>
         </ScrollView>
+        <Banner
+          unitId={global.adMobIds.banner}
+          size={"SMART_BANNER"}
+          request={request.build()}
+        />
         <View style={styles.addView}>
           {/* <AdMobBanner
             adSize="banner"

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+// import NetInfo from "@react-native-community/netinfo";
 import {
   SafeAreaView,
   StyleSheet,
@@ -16,6 +18,8 @@ import { createAppContainer, createStackNavigator } from "react-navigation";
 import HomeScreen from "./Screens/HomeScreen";
 import ResultsScreen from "./Screens/ResultsScreen";
 
+import OfflineNotice from "./Screens/OfflineNotice";
+
 const StackNavigator = createStackNavigator({
   HomeScreen: HomeScreen,
   ResultsScreen: ResultsScreen
@@ -24,6 +28,12 @@ const StackNavigator = createStackNavigator({
 const AppContainer = createAppContainer(StackNavigator);
 
 export default class App extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  //   NetInfo.isConnected.fetch().then(isConnected => {
+  //     this.setState({ isConnected });
+  //   });
+  // }
   componentDidMount() {
     firebase.messaging().subscribeToTopic("all");
 
@@ -61,8 +71,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    flex: 1
   }
 });
