@@ -1,7 +1,6 @@
 global.adMobIds = {
-  banner: "ca-app-pub-3940256099942544/6300978111",
-  interstitial: "ca-app-pub-3940256099942544/1033173712",
-  rewarded: "ca-app-pub-3940256099942544/5224354917"
+  banner: "ca-app-pub-5266547428953013~7368624528",
+  interstitial: "ca-app-pub-5266547428953013~7368624528"
 };
 
 // Change App Id in AndroidManifest.xml and MainApplication.java

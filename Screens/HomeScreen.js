@@ -58,13 +58,9 @@ export default class HomeScreen extends React.Component {
     const request = new AdRequest();
     advert.loadAd(request.build());
 
-    setTimeout(() => {
-      if (advert.isLoaded()) {
-        advert.show();
-      } else {
-        // Unable to show interstitial - not loaded yet.
-      }
-    }, 10000);
+    advert.on("onAdLoaded", () => {
+      advert.show();
+    });
 
     this.unsubscribe = this.ref.onSnapshot(querySnapshot => {
       const categories = [];

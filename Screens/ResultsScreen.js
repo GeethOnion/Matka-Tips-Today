@@ -26,6 +26,15 @@ export default class ResultsScreen extends React.Component {
     // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
     // AdMobInterstitial.requestAd().then(() => AdMobInterstitial.showAd());
 
+    const advert = firebase.admob().interstitial(global.adMobIds.interstitial);
+    const AdRequest = firebase.admob.AdRequest;
+    const request = new AdRequest();
+    advert.loadAd(request.build());
+
+    advert.on("onAdLoaded", () => {
+      advert.show();
+    });
+
     var that = this;
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
