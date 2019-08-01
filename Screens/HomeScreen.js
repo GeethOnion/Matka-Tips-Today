@@ -12,14 +12,9 @@ import {
   Platform
 } from "react-native";
 
-const { width } = Dimensions.get("window");
+import { Button } from "native-base";
 
-// import {
-//   AdMobBanner,
-//   AdMobInterstitial,
-//   PublisherBanner,
-//   AdMobRewarded
-// } from "react-native-admob";
+const { width } = Dimensions.get("window");
 
 import LinearGradient from "react-native-linear-gradient";
 import firebase from "react-native-firebase";
@@ -105,21 +100,14 @@ export default class HomeScreen extends React.Component {
                 data={this.state.categories}
                 renderItem={({ item }) => (
                   <View style={styles.buttonview}>
-                    <TouchableNativeFeedback
-                      style={{ borderRadius: 20 }}
-                      background={TouchableNativeFeedback.Ripple(
-                        "#ececec",
-                        true
-                      )}
-                      useForeground={true}
+                    <Button
+                      style={styles.button}
                       onPress={() => {
                         this.pressRow(item);
                       }}
                     >
-                      <View style={styles.button}>
-                        <Text style={styles.buttontext}>{item.name}</Text>
-                      </View>
-                    </TouchableNativeFeedback>
+                      <Text style={styles.buttontext}>{item.name}</Text>
+                    </Button>
                   </View>
                 )}
               />
@@ -146,14 +134,14 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     padding: 12,
-    width: 350,
+    // width: (width / 10) * 8,
     height: 63,
     borderRadius: 20,
     alignItems: "center",
-    shadowOpacity: 0.2,
-    elevation: 20
+    shadowOpacity: 0.2
+    // elevation: 20,
   },
 
   buttonview: {
@@ -169,8 +157,9 @@ const styles = StyleSheet.create({
   buttontext: {
     color: "grey",
     fontSize: 25,
-
-    fontWeight: "700"
+    textAlign: "center",
+    fontWeight: "700",
+    width: (width / 10) * 8
   },
   addView: {
     justifyContent: "center",
