@@ -19,14 +19,20 @@ export default class SignupScreen extends React.Component {
   };
   handleSignUp = () => {
     // TODO: Firebase stuff...
+    const { email, password } = this.state;
 
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate("HomeScreen"))
-      .catch(error => this.setState({ errorMessage: error.message }));
-    console.log("handleSignUp");
+    if ((email, password)) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => this.props.navigation.navigate("HomeScreen"))
+        .catch(error => this.setState({ errorMessage: error.message }));
+      console.log("handleSignUp");
+    } else if ((email, password).length == 0) {
+      this.setState({ danger: "red" });
+    }
   };
+
   render() {
     return (
       <View style={styles.container}>
@@ -40,6 +46,7 @@ export default class SignupScreen extends React.Component {
           <InputField
             label="Email"
             itemStyle={{
+              borderBottomColor: this.state.danger,
               borderBottomWidth: 2
             }}
             placeholder="Email"
@@ -49,6 +56,7 @@ export default class SignupScreen extends React.Component {
           <InputField
             secureTextEntry
             itemStyle={{
+              borderBottomColor: this.state.danger,
               borderBottomWidth: 1.6
             }}
             label="Password"
