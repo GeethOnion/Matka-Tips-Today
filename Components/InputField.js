@@ -11,16 +11,16 @@ const InputField = ({
   secureTextEntry,
   value,
   style,
-  ref
+  ref,
+  itemStyle
 }) => (
   <View style={styles.container}>
     <Form>
-      <Item floatingLabel>
-        <Label>{label}</Label>
+      <Item style={[styles.item, itemStyle]} floatingLabel>
+        <Label style={styles.label}>{label}</Label>
         <Input
           autoCapitalize="none"
           autoCorrect={false}
-          ref={ref}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
           value={value}
@@ -34,9 +34,16 @@ export default InputField;
 
 const styles = StyleSheet.create({
   input: {
-    width: (width / 10) * 9,
+    width: (width / 10) * 8,
     marginHorizontal: 10,
-    marginVertical: 5,
+    marginVertical: 10,
     padding: 10
+  },
+  label: {
+    marginBottom: 10
+  },
+  item: {
+    paddingVertical: 10,
+    paddingRight: 20
   }
 });

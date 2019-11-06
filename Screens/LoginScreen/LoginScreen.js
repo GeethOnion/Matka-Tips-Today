@@ -1,5 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Image,
+  Animated,
+  Easing,
+  Keyboard
+} from "react-native";
 import firebase from "react-native-firebase";
 import InputField from "../../Components/InputField";
 
@@ -11,8 +20,66 @@ export default class LoginScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
-  state = { email: "", password: "", errorMessage: null };
-  handleLogin = () => {
+  constructor(props) {
+    super(props);
+    this.anime = {
+      animatedValue: new Animated.Value(0),
+      opacity: new Animated.Value(1)
+    };
+  }
+
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      this._keyboardDidShow
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      this._keyboardDidHide
+    );
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  _keyboardDidShow = () => {
+    // alert("Keyboard Shown");
+    Animated.spring(this.anime.opacity, {
+      toValue: 0,
+      duration: 50,
+      easing: Easing.ease
+    }).start();
+    Animated.spring(this.anime.animatedValue, {
+      toValue: 0.7,
+      duration: 100,
+      easing: Easing.ease
+    }).start();
+  };
+
+  _keyboardDidHide = () => {
+    // alert("Keyboard Hidden");
+    Animated.spring(this.anime.animatedValue, {
+      toValue: 1,
+      duration: 100,
+      easing: Easing.ease
+    }).start();
+    Animated.spring(this.anime.opacity, {
+      toValue: 1,
+      duration: 100,
+      easing: Easing.ease
+    }).start();
+  };
+
+  state = {
+    email: "",
+    password: "",
+    errorMessage: null,
+    empty: "",
+    danger: "#f3d104"
+  };
+  HandleLogin = () => {
     // TODO: Firebase stuff...
 
     const { email, password } = this.state;
@@ -24,36 +91,52 @@ export default class LoginScreen extends React.Component {
         .then(() => this.props.navigation.navigate("HomeScreen"))
         .catch(error => this.setState({ errorMessage: "Bad Credentials" }));
 
-      console.log("handleLogin");
+      console.log("HandleLogin");
     } else if ((email, password).length == 0) {
-      alert("Fill Required");
+      this.setState({ danger: "red" });
     }
   };
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.logoView}></View>
+        <View style={styles.logoView}>
+          <Animated.Image
+            style={{ transform: [{ scale: this.anime.animatedValue }] }}
+            source={require("../../assets/logo.png")}
+          />
+          <Animated.Text
+            style={[styles.LogoText, { opacity: this.anime.opacity }]}
+          >
+            Matka Tips Today
+          </Animated.Text>
+        </View>
 
         <View style={styles.inputView}>
           {this.state.errorMessage && (
-            <Text style={{ color: "red", textAlign: "center" }}>
-              {this.state.errorMessage}
-            </Text>
+            <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
           )}
           <InputField
             label="Email"
+            itemStyle={{
+              borderBottomColor: this.state.danger,
+              borderBottomWidth: 2
+            }}
             placeholder="Email"
             onChangeText={email => this.setState({ email })}
             value={this.state.email}
           />
           <InputField
             secureTextEntry
+            itemStyle={{
+              borderBottomColor: this.state.danger,
+              borderBottomWidth: 1.6
+            }}
             label="Password"
             placeholder="Password"
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
           />
-          <ButtonNB title="Login" onPress={this.handleLogin} />
+          <ButtonNB title="Login" onPress={this.HandleLogin} />
           <Button
             style={styles.signButton}
             transparent
@@ -72,11 +155,14 @@ const styles = StyleSheet.create({
     padding: 10
   },
   logoView: {
-    flex: 3
+    flex: 3,
+    justifyContent: "flex-end",
+    alignItems: "center"
   },
   inputView: {
-    flex: 2,
-    justifyContent: "flex-end"
+    flex: 3,
+    justifyContent: "flex-end",
+    paddingBottom: 20
   },
   textInput: {
     height: 40,
@@ -87,11 +173,17 @@ const styles = StyleSheet.create({
   },
   signText: {
     color: "#7b3c15",
-    alignSelf: "center"
+    alignSelf: "center",
+    fontSize: 16
   },
   signButton: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 0
+    marginTop: 10
+  },
+  LogoText: {
+    color: "#7b3c15",
+    fontWeight: "bold",
+    fontSize: 30
   }
 });

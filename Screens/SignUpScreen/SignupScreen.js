@@ -1,12 +1,22 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View, Button } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import firebase from "react-native-firebase";
+import InputField from "../../Components/InputField";
+import ButtonNB from "../../Components/loginButton";
+
+import { Button } from "native-base";
 
 export default class SignupScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
-  state = { email: "", password: "", errorMessage: null };
+  state = {
+    email: "",
+    password: "",
+    errorMessage: null,
+    empty: "",
+    danger: "#f3d104"
+  };
   handleSignUp = () => {
     // TODO: Firebase stuff...
 
@@ -20,30 +30,42 @@ export default class SignupScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Sign Up</Text>
-        {this.state.errorMessage && (
-          <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
-        )}
-        <TextInput
-          placeholder="Email"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          placeholder="Password"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
-        <Button title="Sign Up" onPress={this.handleSignUp} />
-        <Button
-          title="Already have an account? Login"
-          onPress={() => this.props.navigation.navigate("LoginScreen")}
-        />
+        <View style={styles.inputView}>
+          <View style={styles.header}>
+            <Text style={styles.signTextTitle}>Sign Up</Text>
+            {this.state.errorMessage && (
+              <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
+            )}
+          </View>
+          <InputField
+            label="Email"
+            itemStyle={{
+              borderBottomWidth: 2
+            }}
+            placeholder="Email"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
+          <InputField
+            secureTextEntry
+            itemStyle={{
+              borderBottomWidth: 1.6
+            }}
+            label="Password"
+            placeholder="Password"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          />
+
+          <ButtonNB title="Sign Up" onPress={this.handleSignUp} />
+          <Button
+            style={styles.signButton}
+            transparent
+            onPress={() => this.props.navigation.navigate("LoginScreen")}
+          >
+            <Text style={styles.signText}>Don't have an account? Login</Text>
+          </Button>
+        </View>
       </View>
     );
   }
@@ -51,8 +73,12 @@ export default class SignupScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10
+  },
+  inputView: {
+    flex: 3,
     justifyContent: "center",
-    alignItems: "center"
+    paddingBottom: 20
   },
   textInput: {
     height: 40,
@@ -60,5 +86,29 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     marginTop: 8
+  },
+  signText: {
+    color: "#7b3c15",
+    alignSelf: "center",
+    fontSize: 16
+  },
+  signButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10
+  },
+  LogoText: {
+    color: "#7b3c15",
+    fontWeight: "bold",
+    fontSize: 30
+  },
+  signTextTitle: {
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#7b3c15"
+  },
+  header: {
+    marginVertical: 20,
+    marginLeft: 10
   }
 });
