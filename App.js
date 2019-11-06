@@ -19,11 +19,28 @@ import HomeScreen from "./Screens/HomeScreen";
 import ResultsScreen from "./Screens/ResultsScreen";
 
 import OfflineNotice from "./Screens/OfflineNotice";
+import Loading from "./Components/Loading";
+import SignupScreen from "./Screens/SignUpScreen/SignupScreen";
+import LoginScreen from "./Screens/LoginScreen/LoginScreen";
 
-const StackNavigator = createStackNavigator({
-  HomeScreen: HomeScreen,
-  ResultsScreen: ResultsScreen
-});
+const StackNavigator = createStackNavigator(
+  {
+    HomeScreen: HomeScreen,
+    ResultsScreen: ResultsScreen,
+    Loading: {
+      screen: Loading
+    },
+    SignupScreen: {
+      screen: SignupScreen
+    },
+    LoginScreen: {
+      screen: LoginScreen
+    }
+  },
+  {
+    initialRouteName: "Loading"
+  }
+);
 
 const AppContainer = createAppContainer(StackNavigator);
 

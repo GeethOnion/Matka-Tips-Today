@@ -18,6 +18,7 @@ import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import com.google.android.gms.ads.MobileAds;
 
 
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
       packages.add(new RNFirebaseFirestorePackage());
       packages.add(new RNFirebaseMessagingPackage());
       packages.add(new RNFirebaseAdMobPackage());
+        packages.add(new RNFirebaseAuthPackage()); 
       return packages;
     }
 

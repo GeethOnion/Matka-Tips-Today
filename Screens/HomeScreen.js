@@ -27,6 +27,18 @@ import "../adMob";
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Matka Tips Today",
+    headerLeft: null,
+    headerRight: (
+      <Button
+        style={{ paddingHorizontal: 20 }}
+        transparent
+        onPress={() => HomeScreen._signout()}
+      >
+        <Text style={{ fontWeight: "bold", color: "#721f00", fontSize: 18 }}>
+          Sign Out
+        </Text>
+      </Button>
+    ),
     headerStyle: {
       backgroundColor: "#f3d104"
     },
@@ -40,6 +52,7 @@ export default class HomeScreen extends React.Component {
     super();
     this.unsubscribe = null;
     this.state = {
+      currentUser: null,
       isLoading: true,
       categories: []
     };
@@ -47,6 +60,9 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    const { currentUser } = firebase.auth();
+    this.setState({ currentUser });
+
     verCheck();
     const advert = firebase.admob().interstitial(global.adMobIds.interstitial);
     const AdRequest = firebase.admob.AdRequest;
@@ -80,7 +96,15 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate("ResultsScreen", item);
   }
 
+  static _signout() {
+    firebase.auth().signOut();
+    // alert(this.state.currentUser.email);
+  }
+
   render() {
+    //firebase/auth
+    const { currentUser } = this.state;
+
     const Banner = firebase.admob.Banner;
 
     const AdRequest = firebase.admob.AdRequest;
@@ -113,6 +137,8 @@ export default class HomeScreen extends React.Component {
               />
             </View>
           </ScrollView>
+          {/* <Text>Hi {currentUser && currentUser.email}!</Text> */}
+
           <Banner
             unitId={global.adMobIds.banner}
             size={"SMART_BANNER"}
@@ -181,5 +207,9 @@ const styles = StyleSheet.create({
   },
   offlineText: {
     color: "#fff"
+  },
+  signText: {
+    fontWeight: "bold",
+    color: "#721f00"
   }
 });
