@@ -100,11 +100,7 @@ export default class LoginScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar
-          barStyle="dark-content"
-          translucent
-          backgroundColor="transparent"
-        />
+        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
         <View style={styles.logoView}>
           <Animated.Image
             style={{ transform: [{ scale: this.anime.animatedValue }] }}
