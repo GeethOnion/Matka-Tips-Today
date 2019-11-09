@@ -81,8 +81,6 @@ export default class LoginScreen extends React.Component {
     danger: "#f3d104"
   };
   HandleLogin = () => {
-    // TODO: Firebase stuff...
-
     const { email, password } = this.state;
 
     if ((email, password)) {

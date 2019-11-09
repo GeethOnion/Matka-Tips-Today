@@ -32,7 +32,7 @@ export default class HomeScreen extends React.Component {
       <Button
         style={{ paddingHorizontal: 20 }}
         transparent
-        onPress={() => HomeScreen._signout()}
+        onPress={() => firebase.auth().signOut()}
       >
         <Text style={{ fontWeight: "bold", color: "#721f00", fontSize: 18 }}>
           Sign Out
@@ -92,12 +92,14 @@ export default class HomeScreen extends React.Component {
     });
   }
 
-  pressRow(item) {
+  pressRow = item => {
     this.props.navigation.navigate("ResultsScreen", item);
-  }
+    // firebase.auth().signOut();
+  };
 
   static _signout() {
     firebase.auth().signOut();
+
     // alert(this.state.currentUser.email);
   }
 

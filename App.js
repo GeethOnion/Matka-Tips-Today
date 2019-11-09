@@ -22,6 +22,7 @@ import OfflineNotice from "./Screens/OfflineNotice";
 import Loading from "./Components/Loading";
 import SignupScreen from "./Screens/SignUpScreen/SignupScreen";
 import LoginScreen from "./Screens/LoginScreen/LoginScreen";
+import PhoneAuthTest from "./Screens/Phone-Auth/PhoneAuthTest";
 
 const StackNavigator = createStackNavigator(
   {
@@ -30,11 +31,8 @@ const StackNavigator = createStackNavigator(
     Loading: {
       screen: Loading
     },
-    SignupScreen: {
-      screen: SignupScreen
-    },
-    LoginScreen: {
-      screen: LoginScreen
+    PhoneAuthTest: {
+      screen: PhoneAuthTest
     }
   },
   {

@@ -12,13 +12,15 @@ const InputField = ({
   value,
   style,
   ref,
-  itemStyle
+  itemStyle,
+  keyboardType
 }) => (
   <View style={styles.container}>
     <Form>
       <Item style={[styles.item, itemStyle]} floatingLabel>
         <Label style={styles.label}>{label}</Label>
         <Input
+          keyboardType={keyboardType}
           autoCapitalize="none"
           autoCorrect={false}
           onChangeText={onChangeText}
