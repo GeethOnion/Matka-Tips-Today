@@ -73,6 +73,8 @@ export default class HomeScreen extends React.Component {
       advert.show();
     });
 
+    // f5:37:5d:f1:db:6d:d7:5d:60:c4:f6:3f:61:59:bc:71:a1:5c:09:26
+
     this.unsubscribe = this.ref.onSnapshot(querySnapshot => {
       const categories = [];
       querySnapshot.forEach(doc => {

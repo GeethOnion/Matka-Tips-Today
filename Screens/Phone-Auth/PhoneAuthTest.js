@@ -76,6 +76,7 @@ export default class PhoneAuthTest extends Component {
   };
 
   componentWillUnmount() {
+    BackHandler.removeEventListener("hardwareBackPress", this.handleBackButton);
     if (this.unsubscribe) this.unsubscribe();
   }
 
@@ -92,7 +93,8 @@ export default class PhoneAuthTest extends Component {
         )
         .catch(error =>
           this.setState({
-            message: `Wrong Format, Example: +4412345678`
+            // message: `Wrong Format, Example: +4412345678`
+            message: error.message
           })
         );
     } else if (phoneNumber.length == 0) {
@@ -126,14 +128,6 @@ export default class PhoneAuthTest extends Component {
 
     return (
       <View style={{ flex: 1, justifyContent: "center" }}>
-        {/* <Text>Enter phone number:</Text> */}
-        {/* <TextInput
-          autoFocus
-          style={{ height: 40, marginTop: 15, marginBottom: 15 }}
-          onChangeText={value => this.setState({ phoneNumber: value })}
-          placeholder={"Phone number ... "}
-          value={phoneNumber}
-        /> */}
         <View style={styles.logoView}>
           <Image source={require("../../assets/logo.png")} />
           <Text style={[styles.LogoText]}>Matka Tips Today</Text>
@@ -148,7 +142,6 @@ export default class PhoneAuthTest extends Component {
             value={phoneNumber}
           />
           <LoginButton title="Sign In" onPress={this.signIn} />
-          {/* <Button title="Sign In" color="green" onPress={this.signIn} /> */}
         </View>
       </View>
     );
