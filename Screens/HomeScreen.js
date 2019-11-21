@@ -9,7 +9,9 @@ import {
   TouchableNativeFeedback,
   NetInfo,
   Dimensions,
-  Platform
+  Platform,
+  BackHandler,
+  Alert
 } from "react-native";
 
 import { Button } from "native-base";
@@ -60,6 +62,7 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    BackHandler.addEventListener("hardwareBackPress", this.handleBackButton);
     const { currentUser } = firebase.auth();
     this.setState({ currentUser });
 
@@ -93,6 +96,33 @@ export default class HomeScreen extends React.Component {
       });
     });
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener("hardwareBackPress", this.handleBackButton);
+    if (this.unsubscribe) this.unsubscribe();
+  }
+
+  handleBackButton = () => {
+    Alert.alert(
+      "Exit App",
+      "Exiting the application?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: () => BackHandler.exitApp()
+        }
+      ],
+      {
+        cancelable: false
+      }
+    );
+    return true;
+  };
 
   pressRow = item => {
     this.props.navigation.navigate("ResultsScreen", item);

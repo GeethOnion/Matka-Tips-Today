@@ -89,8 +89,6 @@ export default class LoginScreen extends React.Component {
         .signInWithEmailAndPassword(email, password)
         .then(() => this.props.navigation.navigate("HomeScreen"))
         .catch(error => this.setState({ errorMessage: "Bad Credentials" }));
-
-      console.log("HandleLogin");
     } else if ((email, password).length == 0) {
       this.setState({ danger: "red" });
     }

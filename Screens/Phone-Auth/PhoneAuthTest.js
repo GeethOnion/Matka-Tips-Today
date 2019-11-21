@@ -29,7 +29,7 @@ export default class PhoneAuthTest extends Component {
       user: null,
       message: "",
       codeInput: "",
-      phoneNumber: "+94",
+      phoneNumber: "+91",
       confirmResult: null
     };
   }
@@ -46,7 +46,7 @@ export default class PhoneAuthTest extends Component {
           user: null,
           message: "",
           codeInput: "",
-          phoneNumber: "+94",
+          phoneNumber: "+91",
           confirmResult: null
         });
       }
@@ -83,6 +83,7 @@ export default class PhoneAuthTest extends Component {
   signIn = () => {
     const { phoneNumber } = this.state;
     this.setState({ message: "Sending code ..." });
+    // this.props.navigation.navigate("LoadingNew");
 
     if (phoneNumber) {
       firebase
@@ -91,12 +92,12 @@ export default class PhoneAuthTest extends Component {
         .then(confirmResult =>
           this.setState({ confirmResult, message: "Code has been sent!" })
         )
-        .catch(error =>
+        .catch(error => {
           this.setState({
-            // message: `Wrong Format, Example: +4412345678`
             message: error.message
-          })
-        );
+          });
+          this.props.navigation.navigate("PhoneAuthTest");
+        });
     } else if (phoneNumber.length == 0) {
       this.setState({
         message: "Input Your Phone Number"
@@ -149,6 +150,8 @@ export default class PhoneAuthTest extends Component {
 
   renderMessage() {
     const { message } = this.state;
+
+    console.log(message);
 
     if (!message.length) return null;
 

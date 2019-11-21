@@ -23,11 +23,15 @@ import Loading from "./Components/Loading";
 import SignupScreen from "./Screens/SignUpScreen/SignupScreen";
 import LoginScreen from "./Screens/LoginScreen/LoginScreen";
 import PhoneAuthTest from "./Screens/Phone-Auth/PhoneAuthTest";
+import LoadingNew from "./Components/LoadingNew";
 
 const StackNavigator = createStackNavigator(
   {
     HomeScreen: HomeScreen,
     ResultsScreen: ResultsScreen,
+    LoadingNew: {
+      screen: LoadingNew
+    },
     Loading: {
       screen: Loading
     },
